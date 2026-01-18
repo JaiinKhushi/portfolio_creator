@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio Creator</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Create Your Portfolio</h1>
+
+    <form method="POST">
+
+        <div>
+            <label>Your Name</label>
+            <input type="text" name="name" required>
+        </div>
+
+        <div>
+            <label>College Name</label>
+            <input type="text" name="college" required>
+        </div>
+
+        <div>
+            <label>CGPA</label>
+            <input type="text" name="cgpa">
+        </div>
+
+        <div>
+            <label>10th School & Percentage</label>
+            <input type="text" name="tenth">
+        </div>
+
+        <div>
+            <label>12th School & Percentage</label>
+            <input type="text" name="twelfth">
+        </div>
+
+        <div class="full">
+            <label>Skills (comma separated)</label>
+            <textarea name="skills"></textarea>
+        </div>
+
+        <div>
+            <label>Project 1 Name</label>
+            <input type="text" name="project1">
+        </div>
+
+        <div>
+            <label>Project 1 Link</label>
+            <input type="text" name="project1_link">
+        </div>
+
+        <div>
+            <label>Project 2 Name</label>
+            <input type="text" name="project2">
+        </div>
+
+        <div>
+            <label>Project 2 Link</label>
+            <input type="text" name="project2_link">
+        </div>
+
+        <div>
+            <label>Email</label>
+            <input type="email" name="email">
+        </div>
+
+        <div>
+            <label>GitHub / LinkedIn</label>
+            <input type="text" name="github">
+        </div>
+
+        <button type="submit">Generate Portfolio 🚀</button>
+
+    </form>
+</div>
+
+</body>
+</html>

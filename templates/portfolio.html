@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ data.name }} | Portfolio</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>{{ data.name }}</h1>
+        <div class="divider"></div>
+    </div>
+
+    <!-- Education -->
+    <div class="section">
+        <h2>Education</h2>
+        <div class="edu-item"><b>College:</b> {{ data.college }}</div>
+        <div class="edu-item"><b>CGPA:</b> {{ data.cgpa }}</div>
+        <div class="edu-item"><b>10th:</b> {{ data.tenth }}</div>
+        <div class="edu-item"><b>12th:</b> {{ data.twelfth }}</div>
+    </div>
+
+    <!-- Skills -->
+    <div class="section">
+        <h2>Skills</h2>
+        <div class="skills">
+            {% for skill in data.skills.split(",") %}
+                <div class="skill">{{ skill.strip() }}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="section">
+        <h2>Projects</h2>
+        <div class="projects">
+
+            {% if data.project1 %}
+            <div class="project-card">
+                <h3>{{ data.project1 }}</h3>
+                <a href="{{ data.project1_link }}" target="_blank">View Project →</a>
+            </div>
+            {% endif %}
+
+            {% if data.project2 %}
+            <div class="project-card">
+                <h3>{{ data.project2 }}</h3>
+                <a href="{{ data.project2_link }}" target="_blank">View Project →</a>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="section contact">
+        <h2>Contact</h2>
+        <p>📧 {{ data.email }}</p>
+        <p>
+            <a href="{{ data.github }}" target="_blank">GitHub</a> |
+            <a href="{{ data.linkedin }}" target="_blank">LinkedIn</a>
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
