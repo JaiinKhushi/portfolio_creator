@@ -1,70 +1,337 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{{ data.name }} | Portfolio</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.name }} | Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: #e8e6e1;
+            min-height: 100vh;
+            padding: 40px 20px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .resume {
+            background: #fff;
+            width: 780px;
+            padding: 48px 52px 52px;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.13);
+        }
+
+        /* Header */
+        .r-header { text-align: center; margin-bottom: 14px; padding-bottom: 10px; }
+
+        .r-header h1 {
+            font-family: 'EB Garamond', serif;
+            font-size: 32px; font-weight: 700;
+            color: #111; letter-spacing: 0.5px;
+        }
+
+        .r-header .location { font-size: 13px; color: #444; margin-top: 3px; }
+
+        .r-header .contacts { font-size: 12.5px; color: #333; margin-top: 5px; }
+        .r-header .contacts a { color: #333; text-decoration: none; }
+        .r-header .contacts a:hover { text-decoration: underline; }
+
+        /* Section */
+        .r-section { margin-top: 14px; }
+
+        .r-section-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 13.5px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            color: #111;
+            border-bottom: 1.5px solid #111;
+            padding-bottom: 3px; margin-bottom: 10px;
+        }
+
+        /* Education */
+        .edu-row {
+            display: flex; justify-content: space-between;
+            align-items: flex-start; margin-bottom: 4px;
+        }
+
+        .edu-left .school { font-weight: 700; font-size: 14px; color: #111; }
+        .edu-left .degree { font-style: italic; font-size: 13px; color: #333; margin-top: 1px; }
+
+        .edu-right {
+            text-align: right; font-size: 13px; color: #333;
+            white-space: nowrap; margin-left: 16px; flex-shrink: 0;
+        }
+
+        /* Entry (project / exp) */
+        .entry { margin-bottom: 11px; }
+
+        .entry-header {
+            display: flex; justify-content: space-between; align-items: baseline;
+        }
+
+        .entry-title { font-weight: 700; font-size: 14px; color: #111; }
+        .entry-title .entry-sub { font-weight: 400; font-style: italic; font-size: 13px; color: #555; }
+
+        .entry-date {
+            font-size: 13px; color: #333;
+            white-space: nowrap; margin-left: 16px; flex-shrink: 0;
+        }
+
+        .entry-meta { font-size: 12.5px; color: #555; font-style: italic; margin-top: 1px; margin-bottom: 3px; }
+
+        .entry-bullets { list-style: none; padding: 0; }
+
+        .entry-bullets li {
+            font-size: 13px; color: #222;
+            padding-left: 16px; position: relative;
+            line-height: 1.55; margin-top: 2px;
+        }
+
+        .entry-bullets li::before { content: '–'; position: absolute; left: 0; color: #555; }
+
+        /* Skills */
+        .skills-block { font-size: 13px; color: #222; line-height: 1.7; }
+        .skills-block b { font-weight: 600; color: #111; }
+
+        /* Languages */
+        .inline-list { display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: 13px; color: #333; }
+        .inline-list span { background: #f4f3f0; border: 1px solid #ddd; border-radius: 3px; padding: 2px 9px; }
+
+        /* Achievements / certs */
+        .achieve-row {
+            font-size: 13px; color: #222;
+            padding-left: 16px; position: relative;
+            line-height: 1.6; margin-top: 3px;
+        }
+        .achieve-row::before { content: '–'; position: absolute; left: 0; color: #555; }
+
+        /* PDF Button */
+        .pdf-btn {
+            margin-top: 28px;
+            background: #111; color: #fff;
+            border: none; border-radius: 6px;
+            padding: 11px 28px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+        }
+        .pdf-btn:hover { background: #333; transform: translateY(-1px); }
+
+        @media print {
+            body { background: #fff; padding: 0; }
+            .resume { box-shadow: none; width: 100%; padding: 24px 32px; }
+            .pdf-btn { display: none; }
+        }
+
+        @media (max-width: 840px) {
+            .resume { width: 100%; padding: 28px 20px; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
+<div class="resume">
 
-    <div class="header">
+    <!-- HEADER -->
+    <div class="r-header">
         <h1>{{ data.name }}</h1>
-        <div class="divider"></div>
+        {% if data.title or data.college %}
+        <div class="location">
+            {{ data.title }}{% if data.title and data.college %} · {% endif %}{{ data.college }}
+        </div>
+        {% endif %}
+        <div class="contacts">
+            {% if data.phone %}{{ data.phone }}{% endif %}
+            {% if data.phone and data.email %} &nbsp;|&nbsp; {% endif %}
+            {% if data.email %}<a href="mailto:{{ data.email }}">{{ data.email }}</a>{% endif %}
+            {% if data.github %} &nbsp;|&nbsp; <a href="{{ data.github }}" target="_blank">GitHub</a>{% endif %}
+            {% if data.linkedin %} &nbsp;|&nbsp; <a href="{{ data.linkedin }}" target="_blank">LinkedIn</a>{% endif %}
+        </div>
     </div>
 
-    <!-- Education -->
-    <div class="section">
-        <h2>Education</h2>
-        <div class="edu-item"><b>College:</b> {{ data.college }}</div>
-        <div class="edu-item"><b>CGPA:</b> {{ data.cgpa }}</div>
-        <div class="edu-item"><b>10th:</b> {{ data.tenth }}</div>
-        <div class="edu-item"><b>12th:</b> {{ data.twelfth }}</div>
-    </div>
+    <!-- EDUCATION -->
+    {% if data.college or data.tenth or data.twelfth %}
+    <div class="r-section">
+        <div class="r-section-title">Education</div>
 
-    <!-- Skills -->
-    <div class="section">
-        <h2>Skills</h2>
-        <div class="skills">
-            {% for skill in data.skills.split(",") %}
-                <div class="skill">{{ skill.strip() }}</div>
+        {% if data.college %}
+        <div class="edu-row">
+            <div class="edu-left">
+                <div class="school">{{ data.college }}</div>
+                {% if data.degree %}<div class="degree">{{ data.degree }}</div>{% endif %}
+            </div>
+            <div class="edu-right">
+                {% if data.grad_year %}{{ data.grad_year }}{% endif %}
+                {% if data.cgpa %}<br>CGPA: {{ data.cgpa }}{% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if data.twelfth %}
+        <div class="edu-row" style="margin-top:5px;">
+            <div class="edu-left">
+                <div class="school" style="font-weight:600;font-size:13.5px;">12th — {{ data.twelfth }}</div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if data.tenth %}
+        <div class="edu-row" style="margin-top:4px;">
+            <div class="edu-left">
+                <div class="school" style="font-weight:600;font-size:13.5px;">10th — {{ data.tenth }}</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- PROJECTS -->
+    {% if data.project1 or data.project2 %}
+    <div class="r-section">
+        <div class="r-section-title">Projects</div>
+
+        {% if data.project1 %}
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">
+                    {{ data.project1 }}
+                    {% if data.project1_link %}
+                    <span class="entry-sub"> &mdash; <a href="{{ data.project1_link }}" target="_blank" style="color:#555;">Link</a></span>
+                    {% endif %}
+                </div>
+            </div>
+            {% if data.project1_desc %}
+            <ul class="entry-bullets">
+                {% for line in data.project1_desc.split('\n') %}
+                    {% if line.strip() %}<li>{{ line.strip() }}</li>{% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if data.project2 %}
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">
+                    {{ data.project2 }}
+                    {% if data.project2_link %}
+                    <span class="entry-sub"> &mdash; <a href="{{ data.project2_link }}" target="_blank" style="color:#555;">Link</a></span>
+                    {% endif %}
+                </div>
+            </div>
+            {% if data.project2_desc %}
+            <ul class="entry-bullets">
+                {% for line in data.project2_desc.split('\n') %}
+                    {% if line.strip() %}<li>{{ line.strip() }}</li>{% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- TECHNICAL SKILLS -->
+    {% if data.skills %}
+    <div class="r-section">
+        <div class="r-section-title">Technical Skills</div>
+        <div class="skills-block">{{ data.skills }}</div>
+    </div>
+    {% endif %}
+
+    <!-- EXPERIENCE -->
+    {% if data.exp1_role or data.exp2_role %}
+    <div class="r-section">
+        <div class="r-section-title">Experience</div>
+
+        {% if data.exp1_role %}
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">
+                    {{ data.exp1_role }}
+                    {% if data.exp1_company %}<span class="entry-sub"> · {{ data.exp1_company }}</span>{% endif %}
+                </div>
+                {% if data.exp1_duration %}<div class="entry-date">{{ data.exp1_duration }}</div>{% endif %}
+            </div>
+            {% if data.exp1_desc %}
+            <ul class="entry-bullets">
+                {% for line in data.exp1_desc.split('\n') %}
+                    {% if line.strip() %}<li>{{ line.strip() }}</li>{% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if data.exp2_role %}
+        <div class="entry">
+            <div class="entry-header">
+                <div class="entry-title">
+                    {{ data.exp2_role }}
+                    {% if data.exp2_company %}<span class="entry-sub"> · {{ data.exp2_company }}</span>{% endif %}
+                </div>
+                {% if data.exp2_duration %}<div class="entry-date">{{ data.exp2_duration }}</div>{% endif %}
+            </div>
+            {% if data.exp2_desc %}
+            <ul class="entry-bullets">
+                {% for line in data.exp2_desc.split('\n') %}
+                    {% if line.strip() %}<li>{{ line.strip() }}</li>{% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- CERTIFICATIONS -->
+    {% if data.cert1_name or data.cert2_name or data.cert3_name %}
+    <div class="r-section">
+        <div class="r-section-title">Certifications</div>
+        {% if data.cert1_name %}<div class="achieve-row">{{ data.cert1_name }}{% if data.cert1_issuer %} &mdash; <em>{{ data.cert1_issuer }}</em>{% endif %}</div>{% endif %}
+        {% if data.cert2_name %}<div class="achieve-row">{{ data.cert2_name }}{% if data.cert2_issuer %} &mdash; <em>{{ data.cert2_issuer }}</em>{% endif %}</div>{% endif %}
+        {% if data.cert3_name %}<div class="achieve-row">{{ data.cert3_name }}{% if data.cert3_issuer %} &mdash; <em>{{ data.cert3_issuer }}</em>{% endif %}</div>{% endif %}
+    </div>
+    {% endif %}
+
+    <!-- ACHIEVEMENTS -->
+    {% if data.achieve1 or data.achieve2 or data.achieve3 %}
+    <div class="r-section">
+        <div class="r-section-title">Leadership &amp; Achievements</div>
+        {% if data.achieve1 %}<div class="achieve-row">{{ data.achieve1 }}</div>{% endif %}
+        {% if data.achieve2 %}<div class="achieve-row">{{ data.achieve2 }}</div>{% endif %}
+        {% if data.achieve3 %}<div class="achieve-row">{{ data.achieve3 }}</div>{% endif %}
+    </div>
+    {% endif %}
+
+    <!-- LANGUAGES -->
+    {% if data.languages %}
+    <div class="r-section">
+        <div class="r-section-title">Languages</div>
+        <div class="inline-list">
+            {% for lang in data.languages.split(',') %}
+                {% if lang.strip() %}<span>{{ lang.strip() }}</span>{% endif %}
             {% endfor %}
         </div>
     </div>
+    {% endif %}
 
-    <!-- Projects -->
-    <div class="section">
-        <h2>Projects</h2>
-        <div class="projects">
-
-            {% if data.project1 %}
-            <div class="project-card">
-                <h3>{{ data.project1 }}</h3>
-                <a href="{{ data.project1_link }}" target="_blank">View Project →</a>
-            </div>
-            {% endif %}
-
-            {% if data.project2 %}
-            <div class="project-card">
-                <h3>{{ data.project2 }}</h3>
-                <a href="{{ data.project2_link }}" target="_blank">View Project →</a>
-            </div>
-            {% endif %}
-
-        </div>
+    <!-- ABOUT -->
+    {% if data.about %}
+    <div class="r-section">
+        <div class="r-section-title">Summary</div>
+        <p style="font-size:13px;color:#333;line-height:1.65;">{{ data.about }}</p>
     </div>
-
-    <!-- Contact -->
-    <div class="section contact">
-        <h2>Contact</h2>
-        <p>📧 {{ data.email }}</p>
-        <p>
-            <a href="{{ data.github }}" target="_blank">GitHub</a> |
-            <a href="{{ data.linkedin }}" target="_blank">LinkedIn</a>
-        </p>
-    </div>
+    {% endif %}
 
 </div>
+
+<button class="pdf-btn" onclick="window.print()">⬇ Download / Print PDF</button>
 
 </body>
 </html>

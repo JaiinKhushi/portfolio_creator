@@ -1,80 +1,310 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Creator</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<div class="container">
-    <h1>Create Your Portfolio</h1>
+<div class="form-page">
 
-    <form method="POST">
-
-        <div>
-            <label>Your Name</label>
-            <input type="text" name="name" required>
+    <!-- Sidebar -->
+    <aside class="form-sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-mark">P</div>
+            <h2>Portfolio<br>Creator</h2>
+            <p>Build a stunning professional portfolio in minutes.</p>
         </div>
 
-        <div>
-            <label>College Name</label>
-            <input type="text" name="college" required>
+        <ul class="sidebar-steps">
+            <li><span class="step-num">1</span> Personal Info</li>
+            <li><span class="step-num">2</span> Education</li>
+            <li><span class="step-num">3</span> Skills & Languages</li>
+            <li><span class="step-num">4</span> Work Experience</li>
+            <li><span class="step-num">5</span> Projects</li>
+            <li><span class="step-num">6</span> Certifications</li>
+            <li><span class="step-num">7</span> Achievements</li>
+            <li><span class="step-num">8</span> Contact</li>
+        </ul>
+
+        <div class="sidebar-footer">
+            Fill in as much or as little as you like.<br>Empty fields will be gracefully hidden.
         </div>
+    </aside>
 
-        <div>
-            <label>CGPA</label>
-            <input type="text" name="cgpa">
-        </div>
+    <!-- Main Form -->
+    <main class="form-main">
+        <h1>Create Your Portfolio</h1>
+        <p class="subtitle">Fill in your details below and generate a beautiful portfolio page.</p>
 
-        <div>
-            <label>10th School & Percentage</label>
-            <input type="text" name="tenth">
-        </div>
+        <form method="POST" enctype="multipart/form-data">
 
-        <div>
-            <label>12th School & Percentage</label>
-            <input type="text" name="twelfth">
-        </div>
+            <!-- Personal Info -->
+            <div class="form-section">
+                <div class="section-title">
+                    <span class="icon">👤</span> Personal Information
+                </div>
+                <div class="form-grid">
+                    <div>
+                        <label>Full Name</label>
+                        <input type="text" name="name" placeholder="e.g. Arjun Sharma" required>
+                    </div>
+                    <div>
+                        <label>Professional Title</label>
+                        <input type="text" name="title" placeholder="e.g. Full Stack Developer">
+                    </div>
+                    <div class="full">
+                        <label>Profile Photo</label>
+                        <div class="photo-upload-area" id="upload-area">
+                            <input type="file" name="photo" accept="image/*" id="photo-input">
+                            <img id="photo-preview" src="" alt="Preview">
+                            <div class="upload-icon">📷</div>
+                            <p>Click or drag to upload your photo</p>
+                            <span>JPG, PNG up to 5MB</span>
+                        </div>
+                    </div>
+                    <div class="full">
+                        <label>About Me (optional)</label>
+                        <textarea name="about" placeholder="Write a short bio about yourself..."></textarea>
+                    </div>
+                </div>
+            </div>
 
-        <div class="full">
-            <label>Skills (comma separated)</label>
-            <textarea name="skills"></textarea>
-        </div>
+            <!-- Education -->
+            <div class="form-section">
+                <div class="section-title">
+                    <span class="icon">🎓</span> Education
+                </div>
+                <div class="form-grid">
+                    <div>
+                        <label>College / University</label>
+                        <input type="text" name="college" placeholder="e.g. IIT Delhi">
+                    </div>
+                    <div>
+                        <label>Degree & Branch</label>
+                        <input type="text" name="degree" placeholder="e.g. B.Tech Computer Science">
+                    </div>
+                    <div>
+                        <label>CGPA / Percentage</label>
+                        <input type="text" name="cgpa" placeholder="e.g. 8.5 / 10">
+                    </div>
+                    <div>
+                        <label>Graduation Year</label>
+                        <input type="text" name="grad_year" placeholder="e.g. 2025">
+                    </div>
+                    <div>
+                        <label>12th School & Percentage</label>
+                        <input type="text" name="twelfth" placeholder="e.g. Delhi Public School — 92%">
+                    </div>
+                    <div>
+                        <label>10th School & Percentage</label>
+                        <input type="text" name="tenth" placeholder="e.g. St. Mary's School — 95%">
+                    </div>
+                </div>
+            </div>
 
-        <div>
-            <label>Project 1 Name</label>
-            <input type="text" name="project1">
-        </div>
+            <!-- Skills & Languages -->
+            <div class="form-section">
+                <div class="section-title">
+                    <span class="icon">⚡</span> Skills & Languages
+                </div>
+                <div class="form-grid">
+                    <div class="full">
+                        <label>Technical Skills (comma separated)</label>
+                        <textarea name="skills" placeholder="e.g. Python, React, Node.js, SQL, Machine Learning"></textarea>
+                    </div>
+                    <div class="full">
+                        <label>Languages Known (comma separated)</label>
+                        <input type="text" name="languages" placeholder="e.g. English, Hindi, Tamil">
+                    </div>
+                </div>
+            </div>
 
-        <div>
-            <label>Project 1 Link</label>
-            <input type="text" name="project1_link">
-        </div>
+            <!-- Work Experience -->
+            <div class="form-section">
+                <div class="section-title">
+                    <span class="icon">💼</span> Work Experience
+                </div>
+                <div class="form-grid">
+                    <div>
+                        <label>Job Title / Role 1</label>
+                        <input type="text" name="exp1_role" placeholder="e.g. Software Engineer Intern">
+                    </div>
+                    <div>
+                        <label>Company Name</label>
+                        <input type="text" name="exp1_company" placeholder="e.g. Google">
+                    </div>
+                    <div>
+                        <label>Duration</label>
+                        <input type="text" name="exp1_duration" placeholder="e.g. Jun 2024 – Aug 2024">
+                    </div>
+                    <div></div>
+                    <div class="full">
+                        <label>Description</label>
+                        <textarea name="exp1_desc" placeholder="Briefly describe your role and key contributions..."></textarea>
+                    </div>
 
-        <div>
-            <label>Project 2 Name</label>
-            <input type="text" name="project2">
-        </div>
+                    <div>
+                        <label>Job Title / Role 2</label>
+                        <input type="text" name="exp2_role" placeholder="e.g. Frontend Developer">
+                    </div>
+                    <div>
+                        <label>Company Name</label>
+                        <input type="text" name="exp2_company" placeholder="e.g. Startup XYZ">
+                    </div>
+                    <div>
+                        <label>Duration</label>
+                        <input type="text" name="exp2_duration" placeholder="e.g. Jan 2024 – May 2024">
+                    </div>
+                    <div></div>
+                    <div class="full">
+                        <label>Description</label>
+                        <textarea name="exp2_desc" placeholder="Briefly describe your role and key contributions..."></textarea>
+                    </div>
+                </div>
+            </div>
 
-        <div>
-            <label>Project 2 Link</label>
-            <input type="text" name="project2_link">
-        </div>
+            <!-- Projects -->
+            <div class="form-section">
+                <div class="section-title">
+                    <span class="icon">🚀</span> Projects
+                </div>
+                <div class="form-grid">
+                    <div>
+                        <label>Project 1 Name</label>
+                        <input type="text" name="project1" placeholder="e.g. AI Resume Builder">
+                    </div>
+                    <div>
+                        <label>Project 1 Link</label>
+                        <input type="url" name="project1_link" placeholder="https://github.com/...">
+                    </div>
+                    <div class="full">
+                        <label>Project 1 Description</label>
+                        <textarea name="project1_desc" placeholder="What does this project do?"></textarea>
+                    </div>
 
-        <div>
-            <label>Email</label>
-            <input type="email" name="email">
-        </div>
+                    <div>
+                        <label>Project 2 Name</label>
+                        <input type="text" name="project2" placeholder="e.g. E-Commerce App">
+                    </div>
+                    <div>
+                        <label>Project 2 Link</label>
+                        <input type="url" name="project2_link" placeholder="https://github.com/...">
+                    </div>
+                    <div class="full">
+                        <label>Project 2 Description</label>
+                        <textarea name="project2_desc" placeholder="What does this project do?"></textarea>
+                    </div>
+                </div>
+            </div>
 
-        <div>
-            <label>GitHub / LinkedIn</label>
-            <input type="text" name="github">
-        </div>
+            <!-- Certifications -->
+            <div class="form-section">
+                <div class="section-title">
+                    <span class="icon">🏅</span> Certifications
+                </div>
+                <div class="form-grid">
+                    <div>
+                        <label>Certification 1 Name</label>
+                        <input type="text" name="cert1_name" placeholder="e.g. AWS Cloud Practitioner">
+                    </div>
+                    <div>
+                        <label>Issuing Organization</label>
+                        <input type="text" name="cert1_issuer" placeholder="e.g. Amazon Web Services">
+                    </div>
+                    <div>
+                        <label>Certification 2 Name</label>
+                        <input type="text" name="cert2_name" placeholder="e.g. Google Data Analytics">
+                    </div>
+                    <div>
+                        <label>Issuing Organization</label>
+                        <input type="text" name="cert2_issuer" placeholder="e.g. Google / Coursera">
+                    </div>
+                    <div>
+                        <label>Certification 3 Name</label>
+                        <input type="text" name="cert3_name" placeholder="e.g. Meta Frontend Developer">
+                    </div>
+                    <div>
+                        <label>Issuing Organization</label>
+                        <input type="text" name="cert3_issuer" placeholder="e.g. Meta / Coursera">
+                    </div>
+                </div>
+            </div>
 
-        <button type="submit">Generate Portfolio 🚀</button>
+            <!-- Achievements -->
+            <div class="form-section">
+                <div class="section-title">
+                    <span class="icon">🏆</span> Achievements & Awards
+                </div>
+                <div class="form-grid">
+                    <div class="full">
+                        <label>Achievement 1</label>
+                        <input type="text" name="achieve1" placeholder="e.g. Winner — Smart India Hackathon 2024">
+                    </div>
+                    <div class="full">
+                        <label>Achievement 2</label>
+                        <input type="text" name="achieve2" placeholder="e.g. Top 10 in College Coding Contest">
+                    </div>
+                    <div class="full">
+                        <label>Achievement 3</label>
+                        <input type="text" name="achieve3" placeholder="e.g. Published research paper on ML">
+                    </div>
+                </div>
+            </div>
 
-    </form>
+            <!-- Contact -->
+            <div class="form-section">
+                <div class="section-title">
+                    <span class="icon">📬</span> Contact & Links
+                </div>
+                <div class="form-grid">
+                    <div>
+                        <label>Email Address</label>
+                        <input type="email" name="email" placeholder="you@email.com">
+                    </div>
+                    <div>
+                        <label>Phone Number</label>
+                        <input type="text" name="phone" placeholder="+91 98765 43210">
+                    </div>
+                    <div>
+                        <label>GitHub URL</label>
+                        <input type="url" name="github" placeholder="https://github.com/username">
+                    </div>
+                    <div>
+                        <label>LinkedIn URL</label>
+                        <input type="url" name="linkedin" placeholder="https://linkedin.com/in/username">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Generate My Portfolio <span class="btn-arrow">→</span>
+            </button>
+
+        </form>
+    </main>
 </div>
+
+<script>
+    // Photo preview
+    const input = document.getElementById('photo-input');
+    const preview = document.getElementById('photo-preview');
+
+    input.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                document.querySelector('.upload-icon').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 
 </body>
 </html>
